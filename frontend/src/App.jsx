@@ -7,20 +7,20 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext.jsx';
 
 // Layout Components
-import Sidebar from './components/common/Sidebar';
-import Header from './components/common/Header';
+import Sidebar from './components/common/Sidebar.jsx';
+import Header from './components/common/Header.jsx';
 
 // Route Guards
-import ProtectedRoute from './components/common/ProtectedRoute';
-import AdminRoute from './components/common/AdminRoute';
+import ProtectedRoute from './components/common/ProtectedRoute.jsx';
+import AdminRoute from './components/common/AdminRoute.jsx';
 
 // Pages
-import Login from './components/pages/Login';
-import Dashboard from './components/pages/Dashboard';
-import UserManagement from './components/pages/UserManagement';
+import Login from './components/pages/Login.jsx';
+import Dashboard from './components/pages/Dashboard.jsx';
+import UserManagement from './components/pages/UserManagement.jsx';
 
 // Layout wrapper for authenticated pages
 const AuthenticatedLayout = ({ children }) => (

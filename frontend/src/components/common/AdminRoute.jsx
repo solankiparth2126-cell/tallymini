@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import RoleRoute from './RoleRoute';
+import RoleRoute from './RoleRoute.jsx';
 
 const AdminRoute = ({ children }) => {
   return (
