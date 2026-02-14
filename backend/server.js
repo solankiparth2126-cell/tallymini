@@ -2,6 +2,7 @@
  * Express Server
  * 
  * Main entry point for the backend API
+ * Compatible with Vercel serverless deployment
  */
 
 const express = require('express');
@@ -23,14 +24,14 @@ const ledgerRoutes = require('./routes/ledgers');
 // Initialize Express app
 const app = express();
 
-// Connect to database
-connectDB();
+// Connect to database (skip in serverless if connection fails)
+if (process.env.NODE_ENV !== 'production') {
+  connectDB();
+}
 
-// CORS Configuration
+// CORS Configuration - Update these URLs after deployment
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-vercel-app.vercel.app', 'https://your-custom-domain.com']
-    : ['http://localhost:5173', 'http://localhost:3000'],
+  origin: process.env.FRONTEND_URL || ['http://localhost:5173', 'http://localhost:3000'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -84,11 +85,14 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+}
 
+// Export for Vercel
 module.exports = app;
