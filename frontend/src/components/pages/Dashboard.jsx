@@ -5,7 +5,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 import api from '../../services/api.js';
 
 const Dashboard = () => {
