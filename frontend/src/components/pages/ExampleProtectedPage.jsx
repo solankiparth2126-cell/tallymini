@@ -9,8 +9,8 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import api from '../../services/api';
+import { useAuth } from '../../context/AuthContext.jsx';
+import api from '../../services/api.js';
 
 const ExampleProtectedPage = () => {
   // Get auth context - provides user info and role checks
