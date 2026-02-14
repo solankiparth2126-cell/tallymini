@@ -24,14 +24,12 @@ const ledgerRoutes = require('./routes/ledgers');
 // Initialize Express app
 const app = express();
 
-// Connect to database (skip in serverless if connection fails)
-if (process.env.NODE_ENV !== 'production') {
-  connectDB();
-}
+// Connect to database
+connectDB().catch(err => console.log('Database connection error:', err.message));
 
-// CORS Configuration - Update these URLs after deployment
+// CORS Configuration
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || ['http://localhost:5173', 'http://localhost:3000'],
+  origin: process.env.FRONTEND_URL || process.env.VERCEL_URL || '*',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -62,7 +60,7 @@ app.get('/api/health', (req, res) => {
     success: true,
     message: 'Server is running',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'production'
   });
 });
 
@@ -86,11 +84,10 @@ app.use((err, req, res, next) => {
 });
 
 // For local development
-if (process.env.NODE_ENV !== 'production') {
+if (!process.env.VERCEL_URL) {
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
   });
 }
 

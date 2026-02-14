@@ -8,16 +8,16 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      // These options are no longer needed in Mongoose 6+, but kept for clarity
-      // useNewUrlParser: true,
-      // useUnifiedTopology: true,
-    });
-
+    if (!process.env.MONGO_URI) {
+      console.log('MONGO_URI not configured');
+      return;
+    }
+    
+    const conn = await mongoose.connect(process.env.MONGO_URI);
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`Database Connection Error: ${error.message}`);
-    process.exit(1);
+    // Don't exit in serverless - just log the error
   }
 };
 
