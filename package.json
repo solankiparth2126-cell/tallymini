@@ -1,5 +1,3 @@
-# Root Package.json
-# This can be used to run both frontend and backend together
 {
   "name": "accounting-system",
   "version": "1.0.0",
