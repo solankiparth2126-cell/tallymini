@@ -27,9 +27,9 @@ const app = express();
 // Connect to database
 connectDB().catch(err => console.log('Database connection error:', err.message));
 
-// CORS Configuration
+// CORS Configuration - Allow all origins for now
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || process.env.VERCEL_URL || '*',
+  origin: '*',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
