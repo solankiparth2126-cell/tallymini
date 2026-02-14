@@ -1,6 +1,7 @@
 {
   "name": "accounting-system",
   "version": "1.0.0",
+  "private": true,
   "description": "Personal accounting system with role-based authentication",
   "scripts": {
     "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
@@ -8,7 +9,7 @@
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
     "seed": "cd backend && npm run seed",
-    "build": "cd frontend && npm run build"
+    "build": "cd frontend && npm install && npm run build"
   },
   "devDependencies": {
     "concurrently": "^8.2.0"
