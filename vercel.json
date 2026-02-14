@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "name": "tally-mini",
+  "name": "tallymini",
+  "scope": "parths-projects-f5709bec",
   "builds": [
     {
       "src": "frontend/package.json",
@@ -9,9 +10,17 @@
         "distDir": "dist",
         "buildCommand": "npm run build"
       }
+    },
+    {
+      "src": "backend/server.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/backend/server.js"
+    },
     {
       "handle": "filesystem"
     },
@@ -19,5 +28,10 @@
       "src": "/(.*)",
       "dest": "/frontend/dist/index.html"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "VITE_API_URL": "https://$vercel.url/api"
+  },
+  "regions": ["iad1"]
 }
